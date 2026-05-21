@@ -13,9 +13,8 @@ if makefolder and not isfolder(folderName) then
 	makefolder(folderName)
 end
 
--- NOTE TEXT reference (needed for save/load)
+-- NOTE TEXT reference
 local noteText
-
 
 local function SaveConfig()
 	if writefile and noteText then
@@ -42,14 +41,12 @@ local function LoadConfig()
 		if success and result then
 			noteText.Text = result.Note or ""
 
-			-- optional safety check
 			if result.Username and result.Username ~= LocalPlayer.Name then
 				warn("Loaded config from different user:", result.Username)
 			end
 		end
 	end
 end
-
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "Note"
@@ -58,8 +55,12 @@ gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 
 -- MAIN PANEL
 local panel = Instance.new("Frame")
-panel.Size = UDim2.new(0, 380, 0, 95)
-panel.Position = UDim2.new(0.5, -190, 0.3, 0)
+panel.Size = UDim2.new(0, 350, 0, 90)
+
+-- MOVED POSITION HERE
+panel.AnchorPoint = Vector2.new(0, 0)
+panel.Position = UDim2.new(0.2, 0, 0.10, 0)
+
 panel.BackgroundColor3 = Color3.fromRGB(0,0,0)
 panel.BackgroundTransparency = 0.5
 panel.BorderSizePixel = 0
@@ -138,7 +139,6 @@ noteText.TextXAlignment = Enum.TextXAlignment.Left
 noteText.ClearTextOnFocus = false
 noteText.BorderSizePixel = 0
 noteText.Parent = body
-
 
 LoadConfig()
 
